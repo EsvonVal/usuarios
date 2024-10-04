@@ -1,0 +1,33 @@
+
+<form [formGroup]="reactive" (ngSubmit)="onAddNewUser()">
+    <div class="mb-3">
+    <label for="loging-email" form="label">Email</label>
+    <input type="text" class="form-control" name="email" id="loging-email" formControlName="email"  >
+    <div *ngIf="reactive.get('email')?.touched && reactive.get('email')?.errors?.['required'] " 
+    class="alert alert-danger mt-2 ">This Field is Required</div>
+    <div *ngIf="reactive.get('email')?.touched && reactive.get('email')?.errors?.['minlength'] " 
+    class="alert alert-danger mt-2 ">Email must be longer than {{reactive.get('email')?.errors?.['minlength']?.requiredLength}}characters</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="name" form="label">Name</label>
+    <input type="text" class="form-control" name="name" id="name" formControlName="name"  >
+    <div *ngIf="reactive.get('name')?.touched && reactive.get('name')?.errors?.['required'] " 
+    class="alert alert-danger mt-2 ">This Field is Required</div>
+    <div *ngIf="reactive.get('name')?.touched && reactive.get('name')?.errors?.['minlength'] " 
+    class="alert alert-danger mt-2 ">Email must be longer than {{reactive.get('name')?.errors?.['minlength']?.requiredLength}}characters</div>
+  </div>
+    
+    <div class="mb-3">
+        <label for="password" form="label">Password</label>
+        <input type="text" class="form-control" name="password" id="password" formControlName="password" >
+        <div *ngIf="reactive.get('password')?.touched && reactive.get('password')?.errors?.['required'] " 
+        class="alert alert-danger mt-2 ">This Field is Required</div>
+        <div *ngIf="reactive.get('password')?.touched && reactive.get('password')?.errors?.['minlength']" 
+        class="alert alert-danger mt-2 ">password must be longer than characters</div>
+
+    </div>
+        <div class="d-grid gap-2 col-3 float-end" >
+          <button  type="submit" class="btn btn-info btn-lg ">Sign In</button>  
+        </div>
+</form>

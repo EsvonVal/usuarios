@@ -1,0 +1,35 @@
+
+<div class="container">
+   <div class="row">
+        <div class="col-md-6 my-3">
+            <app-new-item [selection]="selection"   (newItemEvent)="addNewtask($event)"
+            (updateTaskEvent)="updateTask($event)"></app-new-item>
+        </div>
+        <div class="summary-panel">
+          <h2>Task Summary</h2>
+          <ul>
+            <li>Total tasks: {{ totalTasks }}</li>
+            <li>Completed tasks: {{ completedTasks }}</li>
+            <li>Upcoming tasks (next 7 days): {{ upComingTasks }}</li>
+          </ul>
+        </div>
+        
+      <div class="col-md-8">
+        <app-tasks *ngFor="let task of tasks" [task]="task" 
+        [selection]="selection" (taskClickedEvent)="onClicked($event)"  
+        (taskDeleteEvent)="deleteTask($event)"
+      ></app-tasks>
+      </div>
+
+    <div class="col-md-4">
+        <div *ngIf="selection?.title" >
+           <p>your task is  {{selection.title}}</p> 
+       <!--
+        <div class="d-grid gap-2 col-3 float-end" >
+            <button (click)="onClear()" class="btn btn-info btn-lg"
+             >on clear</button>  -->
+          </div>
+        </div>
+    </div>
+      
+    </div>

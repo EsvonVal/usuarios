@@ -1,0 +1,47 @@
+<form >
+    <div class="row align-items-center">
+
+   <div class="col-auto">
+        <label for="title">Title</label>
+    </div>
+        <input type="text" id="title" name="title" [(ngModel)]="title" 
+        class="form-control" placeholder="Enter task title" >
+    </div>
+        <div class="col-auto">
+            <label for="description">Description</label>
+        </div>
+        <div class="mb-4">
+            <textarea id="description" name="description" [(ngModel)]="description" class="form-control" 
+            placeholder="Enter task description"></textarea>
+        </div>
+        <div class="col-auto">
+            <label for="status">Status</label>
+            <select [(ngModel)]="status" name="status" id="status" class="form-selec form-select-sm" class="form-control">
+             <option value="pending">pending</option>
+             <option value="in progres">in progres</option>
+             <option value="complete">complete</option>
+            </select>
+        </div>
+       
+        <div class="col-auto">
+            <label for="dueDate">dueDate</label>
+        </div>
+        <div class="mb-4">
+            <input  type="date" id="dueDate" name="dueDate" [(ngModel)]="dueDate" class="form-control" 
+            placeholder="Enter task dueDate">
+        </div>
+        <div>
+    <div class="col-auto mb-3">
+        <button (click)="onAddNewTask()" type="button" id="button" for="new-item" 
+        class="btn btn-primary">Add</button>
+    </div>
+    <div class="col-auto mb-3">
+        <button (click)="onUpdateItem(selection, { title: title, description: description , status: status,
+         dueDate: dueDate})" type="button" id="button" for="new-item" class="btn btn-primary">Update</button>
+    </div>
+     <!--
+    <div class="col-auto">
+        <button type="button" id="button" for="new-item" class="btn btn-primary">Delete</button>
+    </div>-->
+    </div>
+</form>

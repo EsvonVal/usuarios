@@ -1,0 +1,28 @@
+
+    <form [formGroup]="loging" (ngSubmit)="validateUsers()">
+        <div class="mb-6">
+          <label for="usuario" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="usuario" name="usuario" formControlName="usuario" >
+       <div>
+        <div *ngIf="loging.get('usuario')?.touched && loging.get('usuario')?.errors?.['required'] " 
+    class="alert alert-danger mt-2 ">This Field is Required</div>
+       </div>
+       <div *ngIf="loging.get('usuario')?.touched && loging.get('usuario')?.errors?.['minlength'] " 
+       class="alert alert-danger mt-2 ">Email must be longer than {{loging.get('usuario')?.errors?.['minlength']?.requiredLength}}characters</div>
+     </div>
+
+        <div class="mb-6">
+          <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" formControlName="password">
+        <div *ngIf="loging.get('password')?.touched && loging.get('password')?.errors?.['required'] " 
+        class="alert alert-danger mt-2 ">This Field is Required</div>
+        <div *ngIf="loging.get('password')?.touched && loging.get('password')?.errors?.['minlength'] " 
+       class="alert alert-danger mt-2 ">Email must be longer than {{loging.get('password')?.errors?.['minlength']?.requiredLength}}characters</div>
+      
+    </div>
+     
+        
+        <div class="d-grid gap-2 col-3 float-end">
+          <button type="submit" class="btn btn-danger btn-lg">Send</button>
+        </div>
+      </form>

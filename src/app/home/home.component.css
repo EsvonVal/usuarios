@@ -1,0 +1,20 @@
+.summary-panel {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .summary-panel h2 {
+    margin-bottom: 15px;
+  }
+  
+  .summary-panel ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .summary-panel li {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
