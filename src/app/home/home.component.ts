@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TaskService , Task } from '../task.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,16 +9,24 @@ import { TaskService , Task } from '../task.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  showTasks: boolean = false; 
+
   tasks: Task[]=[];
    selection!: Task;
- buttonText = 'Submit'
+ buttonText = 'Submit';
+ filteredTasks: Task[]=[];
+
+ filterStatus: string="all";
+ filterDueDate:string="";
+
+ sortOption:string="none"
 
  totalTasks: number=0;
  completedTasks: number= 0;
  upComingTasks: number=0
 
 
-  constructor(private readonly data:TaskService) { }
+  constructor(private router:Router, private readonly data:TaskService) { }
 
   ngOnInit(): void {
   
@@ -26,6 +35,13 @@ export class HomeComponent implements OnInit {
        this.calculateTasksSumary();
        })
   };
+
+  
+goToRegister(){
+  this.router.navigate(['/register']);
+ }
+
+
 
   calculateTasksSumary():void{
     const now=new Date();
@@ -38,7 +54,37 @@ export class HomeComponent implements OnInit {
       const dueDate= new Date(task.dueDate);
       return dueDate>now  && (dueDate.getTime() -now.getTime()) <= 7*24*60*60*1000;
      }).length
-   }
+   };
+
+
+applyFilterAndSorting():void{
+  let tempTasks=[...this.tasks];
+
+  if(this.filterStatus!=='all'){ 
+    tempTasks=tempTasks.filter(task=>task.status===this.filterStatus);
+  };
+
+  if(this.filterDueDate!==''){ 
+    const selectedDate= new Date(this.filterDueDate);
+    tempTasks=tempTasks.filter(task=> new Date(task.dueDate).toDateString() ===
+     selectedDate.toDateString())
+  }
+
+  if(this.sortOption =='title'){ 
+    tempTasks.sort((a,b)=> a.title.localeCompare (b.title));
+
+    }else if(this.sortOption==='title'){
+
+      tempTasks.sort((a,b)=> new Date (a.dueDate).getDate() - new Date(b.dueDate).getTime())
+    }
+
+
+  this.filteredTasks=tempTasks
+
+ }
+
+
+
 
   addNewtask(newTask: {title: string, description: string , status: string, dueDate: Date}): void{
     const task: Task = {
@@ -55,7 +101,8 @@ export class HomeComponent implements OnInit {
     this.data.addTask(task).subscribe(rep => {
       this.tasks.push(rep);
 
-      this.calculateTasksSumary()
+      this.calculateTasksSumary();
+      this.applyFilterAndSorting()
     });
   }
   
@@ -69,7 +116,8 @@ export class HomeComponent implements OnInit {
     const arrayT=this.tasks.filter(value=>
       value.id !== task.id)
       this.tasks=[...arrayT, task] ;
-      this.calculateTasksSumary()
+      this.calculateTasksSumary();
+      this.applyFilterAndSorting()
    })
 
   }

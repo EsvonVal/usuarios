@@ -1,5 +1,49 @@
+<header class="header text-center my-5 bg-dark text-white p-5">
+  <h1 class="mt-3">Welcome to Task Manager</h1>
+</header>
 
-<div class="container">
+
+
+<div class="text-center mb-5">
+  <button class="btn btn-primary" (click)="goToRegister()">Registrarse</button>
+</div>
+
+
+<div *ngIf="showTasks" class="container">
+  <div class="filter-sort-panel">
+    <h3>Filter and Sort Tasks</h3>
+  
+    <!-- Filtro por estado -->
+    <label for="filterStatus">Filter by Status:</label>
+    <select [(ngModel)]="filterStatus" (change)="applyFilterAndSorting()" id="filterStatus" class="form-select">
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="in progres">In Progress</option>
+      <option value="complete">Complete</option>
+    </select>
+  
+    <!-- Filtro por fecha de vencimiento -->
+    <label for="filterDueDate">Filter by Due Date:</label>
+    <input type="date" [(ngModel)]="filterDueDate" (change)="applyFilterAndSorting()" id="filterDueDate" class="form-control" />
+  
+    <!-- Ordenar por título o fecha -->
+    <label for="sortOption">Sort by:</label>
+    <select [(ngModel)]="sortOption" (change)="applyFilterAndSorting()" id="sortOption" class="form-select">
+      <option value="none">None</option>
+      <option value="title">Title</option>
+      <option value="dueDate">Due Date</option>
+    </select>
+  </div>
+  
+  <!-- Lista de tareas filtrada -->
+  <div *ngFor="let task of filteredTasks">
+    <div class="task-item">
+      <h4>{{ task.title }}</h4>
+      <p>Status: {{ task.status }}</p>
+      <p>Due Date: {{ task.dueDate | date }}</p>
+      <p>Description: {{ task.description }}</p>
+    </div>
+  </div>
    <div class="row">
         <div class="col-md-6 my-3">
             <app-new-item [selection]="selection"   (newItemEvent)="addNewtask($event)"

@@ -1,3 +1,24 @@
+.bg-dark {
+  background-color: #343a40;
+}
+
+.text-white {
+  color: white; 
+}
+
+.p-5 {
+  padding: 3rem; 
+}
+
+.my-5 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
 .summary-panel {
     background-color: #f0f0f0;
     padding: 20px;
@@ -17,4 +38,30 @@
   .summary-panel li {
     margin-bottom: 10px;
     font-weight: bold;
+  };
+
+  .filter-sort-panel {
+    background-color: #f8f8f8;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .filter-sort-panel label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .filter-sort-panel select,
+  .filter-sort-panel input {
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .task-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #fff;
   }
