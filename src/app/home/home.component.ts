@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  showTasks: boolean = false; 
+
 
   tasks: Task[]=[];
    selection!: Task;
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
        })
   };
 
-  
+
 goToRegister(){
   this.router.navigate(['/register']);
  }

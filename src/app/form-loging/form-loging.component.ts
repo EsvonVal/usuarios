@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataServiceService, LoginRequest, TokenResponse } from '../data-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router'; // Importar Router
 @Component({
   selector: 'app-form-loging',
   templateUrl: './form-loging.component.html',
@@ -12,7 +12,8 @@ export class FormLogingComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly datasv: DataServiceService
+    private readonly datasv: DataServiceService,
+    private readonly router: Router // Inyectar Router
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +39,10 @@ export class FormLogingComponent implements OnInit {
           // Manejar el inicio de sesión exitoso, por ejemplo, almacenar el token
           console.log('Inicio de sesión exitoso', response);
           alert('Inicio de sesión exitoso');
+           
+          // Redirigir a la ruta /home
+          this.router.navigate(['/home']); // Agregar esta línea
+
         },
         (error) => {
           // Manejar errores de inicio de sesión

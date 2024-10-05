@@ -6,7 +6,7 @@ import { FormRegisterComponent } from './form-register/form-register.component';
 import { PerfilUsarioComponent } from './perfil-usario/perfil-usario.component'; 
 
 const routes: Routes = [
-  {path: '', redirectTo:'/homeComponent', pathMatch: 'full'},
+  {path: '', redirectTo: '/form-loging', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   {path: 'form-loging', component: FormLogingComponent},
   {path: 'form-register', component: FormRegisterComponent},

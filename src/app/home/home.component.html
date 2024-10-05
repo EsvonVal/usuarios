@@ -1,79 +1,85 @@
-<header class="header text-center my-5 bg-dark text-white p-5">
-  <h1 class="mt-3">Welcome to Task Manager</h1>
-</header>
-
-
-
-<div class="text-center mb-5">
-  <button class="btn btn-primary" (click)="goToRegister()">Registrarse</button>
-</div>
-
-
-<div *ngIf="showTasks" class="container">
-  <div class="filter-sort-panel">
+<div class="container mt-4">
+  <div class="filter-sort-panel mb-4">
     <h3>Filter and Sort Tasks</h3>
-  
-    <!-- Filtro por estado -->
-    <label for="filterStatus">Filter by Status:</label>
-    <select [(ngModel)]="filterStatus" (change)="applyFilterAndSorting()" id="filterStatus" class="form-select">
-      <option value="all">All</option>
-      <option value="pending">Pending</option>
-      <option value="in progres">In Progress</option>
-      <option value="complete">Complete</option>
-    </select>
-  
-    <!-- Filtro por fecha de vencimiento -->
-    <label for="filterDueDate">Filter by Due Date:</label>
-    <input type="date" [(ngModel)]="filterDueDate" (change)="applyFilterAndSorting()" id="filterDueDate" class="form-control" />
-  
-    <!-- Ordenar por título o fecha -->
-    <label for="sortOption">Sort by:</label>
-    <select [(ngModel)]="sortOption" (change)="applyFilterAndSorting()" id="sortOption" class="form-select">
-      <option value="none">None</option>
-      <option value="title">Title</option>
-      <option value="dueDate">Due Date</option>
-    </select>
-  </div>
-  
-  <!-- Lista de tareas filtrada -->
-  <div *ngFor="let task of filteredTasks">
-    <div class="task-item">
-      <h4>{{ task.title }}</h4>
-      <p>Status: {{ task.status }}</p>
-      <p>Due Date: {{ task.dueDate | date }}</p>
-      <p>Description: {{ task.description }}</p>
-    </div>
-  </div>
-   <div class="row">
-        <div class="col-md-6 my-3">
-            <app-new-item [selection]="selection"   (newItemEvent)="addNewtask($event)"
-            (updateTaskEvent)="updateTask($event)"></app-new-item>
-        </div>
-        <div class="summary-panel">
-          <h2>Task Summary</h2>
-          <ul>
-            <li>Total tasks: {{ totalTasks }}</li>
-            <li>Completed tasks: {{ completedTasks }}</li>
-            <li>Upcoming tasks (next 7 days): {{ upComingTasks }}</li>
-          </ul>
-        </div>
-        
-      <div class="col-md-8">
-        <app-tasks *ngFor="let task of tasks" [task]="task" 
-        [selection]="selection" (taskClickedEvent)="onClicked($event)"  
-        (taskDeleteEvent)="deleteTask($event)"
-      ></app-tasks>
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <label for="filterStatus">Filter by Status:</label>
+        <select [(ngModel)]="filterStatus" (change)="applyFilterAndSorting()" id="filterStatus" class="form-select">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="complete">Complete</option>
+        </select>
       </div>
+      <div class="col-md-4 mb-2">
+        <label for="filterDueDate">Filter by Due Date:</label>
+        <input type="date" [(ngModel)]="filterDueDate" (change)="applyFilterAndSorting()" id="filterDueDate" class="form-control" />
+      </div>
+      <div class="col-md-4 mb-2">
+        <label for="sortOption">Sort by:</label>
+        <select [(ngModel)]="sortOption" (change)="applyFilterAndSorting()" id="sortOption" class="form-select">
+          <option value="none">None</option>
+          <option value="title">Title</option>
+          <option value="dueDate">Due Date</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-    <div class="col-md-4">
-        <div *ngIf="selection?.title" >
-           <p>your task is  {{selection.title}}</p> 
-       <!--
-        <div class="d-grid gap-2 col-3 float-end" >
-            <button (click)="onClear()" class="btn btn-info btn-lg"
-             >on clear</button>  -->
-          </div>
-        </div>
+  <!-- Task List -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Due Date</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filteredTasks">
+          <td>{{ task.title }}</td>
+          <td>{{ task.status }}</td>
+          <td>{{ task.dueDate | date }}</td>
+          <td>{{ task.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6 my-3">
+      <app-new-item [selection]="selection" (newItemEvent)="addNewtask($event)" (updateTaskEvent)="updateTask($event)"></app-new-item>
     </div>
-      
+    
+    <div class="col-md-6 my-3">
+      <div class="summary-panel border p-3 rounded bg-light">
+        <h2>Task Summary</h2>
+        <ul class="list-unstyled">
+          <li>Total tasks: {{ totalTasks }}</li>
+          <li>Completed tasks: {{ completedTasks }}</li>
+          <li>Upcoming tasks (next 7 days): {{ upComingTasks }}</li>
+        </ul>
+      </div>
     </div>
+
+    <div class="col-md-8 mt-3">
+      <app-tasks *ngFor="let task of tasks" [task]="task" 
+                 [selection]="selection" (taskClickedEvent)="onClicked($event)"  
+                 (taskDeleteEvent)="deleteTask($event)">
+      </app-tasks>
+    </div>
+
+    <div class="col-md-4 mt-3">
+      <div *ngIf="selection?.title" class="border p-3 rounded bg-light">
+        <h4>Your Selected Task</h4>
+        <p>{{ selection.title }}</p>
+        <!-- Uncomment the button if needed -->
+        <!-- <div class="d-grid gap-2"> -->
+        <!--   <button (click)="onClear()" class="btn btn-info btn-lg">Clear Selection</button> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>

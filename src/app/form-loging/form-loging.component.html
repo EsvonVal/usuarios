@@ -3,21 +3,25 @@
     <label for="email" class="form-label">Email</label>
     <input type="text" class="form-control" id="email" name="email" formControlName="email">
     <div *ngIf="loging.get('email')?.touched && loging.get('email')?.errors?.['required']" 
-         class="alert alert-danger mt-2">This Field is Required</div>
+         class="alert alert-danger mt-2">Este campo es obligatorio</div>
     <div *ngIf="loging.get('email')?.touched && loging.get('email')?.errors?.['email']" 
-         class="alert alert-danger mt-2">Please enter a valid email</div>
+         class="alert alert-danger mt-2">Por favor, ingresa un correo válido</div>
   </div>
 
   <div class="mb-6">
-    <label for="password" class="form-label">Password</label>
+    <label for="password" class="form-label">Contraseña</label>
     <input type="password" class="form-control" id="password" name="password" formControlName="password">
     <div *ngIf="loging.get('password')?.touched && loging.get('password')?.errors?.['required']" 
-         class="alert alert-danger mt-2">This Field is Required</div>
+         class="alert alert-danger mt-2">Este campo es obligatorio</div>
     <div *ngIf="loging.get('password')?.touched && loging.get('password')?.errors?.['minlength']" 
-         class="alert alert-danger mt-2">Password must be longer than {{loging.get('password')?.errors?.['minlength']?.requiredLength}} characters</div>
+         class="alert alert-danger mt-2">La contraseña debe tener más de {{loging.get('password')?.errors?.['minlength']?.requiredLength}} caracteres</div>
   </div>
 
   <div class="d-grid gap-2 col-3 float-end">
-    <button type="submit" class="btn btn-danger btn-lg">Send</button>
+    <button type="submit" class="btn btn-danger btn-lg">Iniciar sesión</button>
   </div>
 </form>
+
+<div class="d-grid gap-2 col-3 float-end mt-3">
+  <button class="btn btn-danger btn-lg" routerLink="form-register" routerLinkActive="active">Registrar</button>
+</div>
