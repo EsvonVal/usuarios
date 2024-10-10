@@ -17,11 +17,10 @@
          class="alert alert-danger mt-2">La contraseña debe tener más de {{loging.get('password')?.errors?.['minlength']?.requiredLength}} caracteres</div>
   </div>
 
-  <div class="d-grid gap-2 col-3 float-end">
-    <button type="submit" class="btn btn-danger btn-lg">Iniciar sesión</button>
+  <div class="text-center">
+    <button type="submit" class="btn btn-danger btn-sm me-2">Iniciar Sesión</button>
+    <button class="btn btn-secondary btn-sm" routerLink="form-register" routerLinkActive="active">Registrar</button>
   </div>
 </form>
 
-<div class="d-grid gap-2 col-3 float-end mt-3">
-  <button class="btn btn-danger btn-lg" routerLink="form-register" routerLinkActive="active">Registrar</button>
-</div>
+
